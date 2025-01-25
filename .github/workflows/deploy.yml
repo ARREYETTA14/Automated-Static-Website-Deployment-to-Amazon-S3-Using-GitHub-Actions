@@ -20,6 +20,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
+      - name: Check AWS CLI Configuration
+        run: aws s3 ls s3://arrey-data-center/
+        
       - name: Sync files to S3 bucket
         run: |
           aws s3 sync ./website/ s3://arrey-data-center/ --delete
@@ -33,7 +36,6 @@ jobs:
         run: |
           aws s3api put-object-acl --bucket arrey-data-center --acl public-read --key index.html
           aws s3api put-object-acl --bucket arrey-data-center --acl public-read --key error.html
-          # If you want to apply it to all files in the bucket, you can loop through the files
           for file in $(aws s3 ls s3://arrey-data-center/ --recursive | awk '{print $4}'); do
             aws s3api put-object-acl --bucket arrey-data-center --acl public-read --key "$file"
           done
