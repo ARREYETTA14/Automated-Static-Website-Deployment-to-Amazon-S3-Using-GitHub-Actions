@@ -68,7 +68,7 @@ This project automates the deployment of a static website to Amazon S3 using Git
 - Save the changes.
 
 # 4. Store your AWS Secrets on GitHub
-- Go to your created GitHub repository.
+- Create a GitHub repository.
 - Navigate to **Settings** > **Secrets and variables** > **Actions** > **New repository secret**.
 
 ![Image](https://github.com/user-attachments/assets/d13f9781-8106-4ccd-a83e-c340344f27c8)
@@ -81,7 +81,7 @@ This project automates the deployment of a static website to Amazon S3 using Git
 
 ![Image](https://github.com/user-attachments/assets/3cb943f9-5b9f-4ee1-84da-9268a268d012)
 
-# 5. Create a GitHub Repository and add Files to Your Repository
+# 5. Add Files to Your Repository
 - Upload your ```index.html``` and ```error.html``` files to your repo. You can create a folder structure or directly add the files at the root of the repository
 
 ![Image](https://github.com/user-attachments/assets/14089f0f-d405-41cd-8842-d1f174507187)
