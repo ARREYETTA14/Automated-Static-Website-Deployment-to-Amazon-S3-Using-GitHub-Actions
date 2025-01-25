@@ -130,6 +130,13 @@ jobs:
       - name: Deploy to S3
         run: |
           aws s3 sync . s3://${{ secrets.S3_BUCKET_NAME }} --delete
+
+      # Step 4: Set public read ACL for index.html and error.html files
+      - name: Apply Public Read ACL to index.html and error.html
+        run: |
+          aws s3api put-object-acl --bucket ${{ secrets.S3_BUCKET_NAME }} --acl public-read --key index.html
+          aws s3api put-object-acl --bucket ${{ secrets.S3_BUCKET_NAME }} --acl public-read --key error.html
+
 ```
 
 # 8. Commit and Push Changes
