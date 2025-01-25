@@ -89,7 +89,7 @@ This project automates the deployment of a static website to Amazon S3 using Git
 ![Image](https://github.com/user-attachments/assets/14089f0f-d405-41cd-8842-d1f174507187)
 
 # 6. Create a GitHub Actions Workflow
-- clone the **clone** the GitHub repo in your **vs code**
+- **Clone** the GitHub repo in your **vs code**
 - Create the following folder structure in the repository you created: ```.github/workflows/```.
 - Inside this folder, create a file named ```deploy.yml```.
 
