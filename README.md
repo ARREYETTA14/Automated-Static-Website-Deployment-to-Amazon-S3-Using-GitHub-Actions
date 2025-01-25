@@ -71,7 +71,7 @@ This project automates the deployment of a static website to Amazon S3 using Git
 - Create a GitHub repository.
 - Navigate to **Settings** tab > **Secrets and variables** > **Actions** > **New repository secret**.
 
-![Image](https://github.com/user-attachments/assets/9bdf8ce7-323b-4034-bf1b-733a90deed93)
+![Image](https://github.com/user-attachments/assets/99e1ac56-2f60-4523-a6a9-de84fe6f365e)
 
 ![Image](https://github.com/user-attachments/assets/d13f9781-8106-4ccd-a83e-c340344f27c8)
 
