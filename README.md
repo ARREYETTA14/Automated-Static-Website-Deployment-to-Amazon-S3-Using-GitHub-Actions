@@ -101,5 +101,23 @@ jobs:
           aws s3 sync . s3://${{ secrets.S3_BUCKET_NAME }} --delete
 ```
 
-#8. Commit and Push Changes
+# 8. Commit and Push Changes
 - After adding the workflow file, commit it to your GitHub repository. You can do this with Git commands:
+```bash
+git add .github/workflows/deploy.yml
+git commit -m "Add GitHub Actions workflow for S3 deployment"
+git push origin main
+```
+
+# 9. Watch the Action Run
+Once the code is pushed to GitHub, go to the Actions tab of your repository.
+You'll see the workflow trigger automatically because you pushed changes to the main branch.
+If everything is set up correctly, the workflow will upload your website files to your S3 bucket.
+
+# 10. Testing 
+- Check if the GitHub files where uploaded in your **s3**
+- In the bucket details, under the **Properties** tab, scroll down to the **Static website hosting** section.
+- You should see a **Bucket website endpoint** URL, which will look like:
+```php
+http://<your-bucket-name>.s3-website-<AWS-region>.amazonaws.com/
+```
