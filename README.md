@@ -42,7 +42,7 @@ This project automates the deployment of a static website to Amazon S3 using Git
   - Uncheck **Block all public access**, then confirm you want to make the bucket public.
   - Click **Create bucket**.
   - Go to **permissions** tab and **create bucket policy** policy:
-  ```json
+```json
   {
   "Id": "Policy1737839385249",
   "Version": "2012-10-17",
