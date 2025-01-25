@@ -3,39 +3,32 @@ name: Deploy Static Website to S3
 on:
   push:
     branches:
-      - main
+      - main  # Trigger deployment on pushes to the main branch
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      # Step 1: Checkout code from the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-      - name: Set up AWS CLI
-        uses: aws-actions/configure-aws-credentials@v1
+      # Step 2: Configure AWS Credentials
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+          aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Check AWS CLI Configuration
-        run: aws s3 ls s3://arrey-data-center/
-        
-      - name: Sync files to S3 bucket
+      # Step 3: Deploy files to S3
+      - name: Deploy to S3
         run: |
-          aws s3 sync ./website/ s3://arrey-data-center/ --delete
+          aws s3 sync . s3://${{ secrets.S3_BUCKET_NAME }} --delete
 
-      - name: Debug AWS S3 Sync and List
+      # Step 4: Set public read ACL for index.html and error.html files
+      - name: Apply Public Read ACL to index.html and error.html
         run: |
-          echo "Listing files in S3 bucket"
-          aws s3 ls s3://arrey-data-center/ --recursive
-
-      - name: Apply public read ACL to all files in S3 bucket
-        run: |
-          aws s3api put-object-acl --bucket arrey-data-center --acl public-read --key index.html
-          aws s3api put-object-acl --bucket arrey-data-center --acl public-read --key error.html
-          for file in $(aws s3 ls s3://arrey-data-center/ --recursive | awk '{print $4}'); do
-            aws s3api put-object-acl --bucket arrey-data-center --acl public-read --key "$file"
-          done
+          aws s3api put-object-acl --bucket ${{ secrets.S3_BUCKET_NAME }} --acl public-read --key index.html
+          aws s3api put-object-acl --bucket ${{ secrets.S3_BUCKET_NAME }} --acl public-read --key error.html
