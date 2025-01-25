@@ -41,6 +41,22 @@ This project automates the deployment of a static website to Amazon S3 using Git
   - Select the **Region** closest to your audience.
   - Uncheck **Block all public access**, then confirm you want to make the bucket public.
   - Click **Create bucket**.
+  - Go to **permissions** tab and **create bucket policy** policy:
+  ```json
+  {
+  "Id": "Policy1737839385249",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1737839383542",
+      "Action": "s3:*",
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::arrey-data-center",
+      "Principal": "*"
+    }
+  ]
+}
+```
 
 # 3. Enable Static Website Hosting
 - Go to the **Properties** tab of your bucket.
@@ -51,22 +67,31 @@ This project automates the deployment of a static website to Amazon S3 using Git
   - Error document to ```error.html```.
 - Save the changes.
 
-# 4. Store your AWS Secrets in GitHub
-- Go to your GitHub repository.
+# 4. Store your AWS Secrets on GitHub
+- Go to your created GitHub repository.
 - Navigate to **Settings** > **Secrets and variables** > **Actions** > **New repository secret**.
+
+![Image](https://github.com/user-attachments/assets/d13f9781-8106-4ccd-a83e-c340344f27c8)
+
 - Add the following secrets:
   - ```AWS_ACCESS_KEY_ID```: Your IAM user’s Access Key ID.
   - ```AWS_SECRET_ACCESS_KEY```: Your IAM user’s Secret Access Key.
   - ```S3_BUCKET_NAME```: Your S3 bucket name.
-  - ```AWS_REGION```: The region where your bucket is hosted (e.g., ```sa-east-1```)
+  - ```AWS_REGION```: The region where your bucket is hosted (e.g., ```sa-east-1```).
 
-# 5. Create Github Repository add Files to Your Repository
+![Image](https://github.com/user-attachments/assets/3cb943f9-5b9f-4ee1-84da-9268a268d012)
+
+# 5. Create a GitHub Repository and add Files to Your Repository
 - Upload your ```index.html``` and ```error.html``` files to your repo. You can create a folder structure or directly add the files at the root of the repository
 
+![Image](https://github.com/user-attachments/assets/14089f0f-d405-41cd-8842-d1f174507187)
+
 # 6. Create a GitHub Actions Workflow
-- clone the **clone** the github repo in yout **vs code**
+- clone the **clone** the GitHub repo in your **vs code**
 - Create the following folder structure in the repository you created: ```.github/workflows/```.
 - Inside this folder, create a file named ```deploy.yml```.
+
+![Image](https://github.com/user-attachments/assets/98e49c5a-f33a-4d0d-8186-bc02ddb532ec)
 
 # 7. Define the Workflow
 - Add the following YAML code to automate the deployment:
@@ -110,14 +135,22 @@ git push origin main
 ```
 
 # 9. Watch the Action Run
-Once the code is pushed to GitHub, go to the Actions tab of your repository.
+Once the code is pushed to GitHub, go to the **Actions** tab of your repository.
 You'll see the workflow trigger automatically because you pushed changes to the main branch.
 If everything is set up correctly, the workflow will upload your website files to your S3 bucket.
 
+![Image](https://github.com/user-attachments/assets/a9dcfd42-d002-46f5-b335-4183a1ea21b3)
+
+![Image](https://github.com/user-attachments/assets/0dd1eb0a-6231-4100-90c0-fe66f1b8f9fb)
+
 # 10. Testing 
-- Check if the GitHub files where uploaded in your **s3**
+- Check if the GitHub files were uploaded in your **s3**
+
+![Image](https://github.com/user-attachments/assets/d5623fb9-4993-454a-bb82-d772aa785e54)
+
 - In the bucket details, under the **Properties** tab, scroll down to the **Static website hosting** section.
 - You should see a **Bucket website endpoint** URL, which will look like:
+
 ```php
 http://<your-bucket-name>.s3-website-<AWS-region>.amazonaws.com/
 ```
@@ -125,18 +158,39 @@ http://<your-bucket-name>.s3-website-<AWS-region>.amazonaws.com/
 - Paste the S3 bucket website URL (e.g., ```http://<your-bucket-name>.s3-website-<AWS-region>.amazonaws.com/```).
 - If everything is working, the ```index.html``` page should load, and you should see your website content.
 
+![Image](https://github.com/user-attachments/assets/40103de8-660d-4adf-946d-0cf143561822)
+
 **Simulate an Error**
 
 - To test if the **error.html** page works, you can try accessing a non-existent page or file in your S3 bucket:
     - In your browser, append a random filename (such as **nonexistentfile.html**) to the end of the URL:
+  
 ```php
 http://<your-bucket-name>.s3-website-<AWS-region>.amazonaws.com/nonexistentfile.html
 ```
 
-**Check for the error.html Page**
+![Image](https://github.com/user-attachments/assets/dde6a3dc-75f8-4ac5-aa27-5a4123e2dbbd)
 
-- If everything is set up correctly, AWS S3 will serve your **error.html** file when an error occurs (like 404 or 403).
-- You should see the content of your **error.html** page instead of the standard S3 error message.
+
+**NB**: If after this you have an **ACCESS DENIED**, **Check Permissions for Each Object** 
+Each file (such as ```index.html``` and ```error.html```) must have the correct permissions to be publicly accessible.
+
+- **Go to Your Objects** (e.g., ```index.html```):
+    - Select your **index.html file**.
+- Verify Object Permissions:
+    - Go to the **Permissions** tab for that object.
+    - Under **Access control list (ACL)**, you may need to ensure that  **Everyone(public access)** has **Read** permission.
+ 
+![Image](https://github.com/user-attachments/assets/e70c72ee-f368-4c07-83e1-03018eaa74b1)
+
+- Repeat for ```error.html```
+
+- This should resolve the **ACCESS DENIED** issue.
+
+
+
+#THANK YOU
+
 
 
 
