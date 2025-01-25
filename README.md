@@ -125,3 +125,18 @@ http://<your-bucket-name>.s3-website-<AWS-region>.amazonaws.com/
 - Paste the S3 bucket website URL (e.g., ```http://<your-bucket-name>.s3-website-<AWS-region>.amazonaws.com/```).
 - If everything is working, the ```index.html``` page should load, and you should see your website content.
 
+**Simulate an Error**
+
+- To test if the error.html page works, you can try accessing a non-existent page or file in your S3 bucket:
+    - In your browser, append a random filename (such as nonexistentfile.html) to the end of the URL:
+```php
+http://<your-bucket-name>.s3-website-<AWS-region>.amazonaws.com/nonexistentfile.html
+```
+
+**Check for the error.html Page**
+
+- If everything is set up correctly, AWS S3 will serve your error.html file when an error occurs (like 404 or 403).
+- You should see the content of your error.html page instead of the standard S3 error message.
+
+
+
