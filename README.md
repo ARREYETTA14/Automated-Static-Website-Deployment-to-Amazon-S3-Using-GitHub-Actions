@@ -179,7 +179,7 @@ http://<your-bucket-name>.s3-website-<AWS-region>.amazonaws.com/nonexistentfile.
 ![Image](https://github.com/user-attachments/assets/dde6a3dc-75f8-4ac5-aa27-5a4123e2dbbd)
 
 
-**NB**: If after this you have an **ACCESS DENIED**, **Check Permissions for Each Object** 
+**NB**: If after this you have an **ACCESS DENIED**, **Check Permissions for Each Object**. 
 Each file (such as ```index.html``` and ```error.html```) must have the correct permissions to be publicly accessible.
 
 - **Go to Your Objects** (e.g., ```index.html```):
