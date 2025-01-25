@@ -3,26 +3,32 @@ name: Deploy Static Website to S3
 on:
   push:
     branches:
-      - main  # Trigger deployment on pushes to the main branch
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout code from the repository
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      # Step 2: Configure AWS Credentials
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
+      - name: Set up AWS CLI
+        uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: us-east-1
 
-      # Step 3: Deploy files to S3
-      - name: Deploy to S3
+      - name: Sync files to S3 bucket
         run: |
-          aws s3 sync . s3://${{ secrets.S3_BUCKET_NAME }} --delete
+          aws s3 sync ./website/ s3://arrey-data-center/ --delete
+
+      - name: Apply public read ACL to all files in S3 bucket
+        run: |
+          aws s3api put-object-acl --bucket arrey-data-center --acl public-read --key index.html
+          aws s3api put-object-acl --bucket arrey-data-center --acl public-read --key error.html
+          # If you want to apply it to all files in the bucket, you can loop through the files
+          for file in $(aws s3 ls s3://arrey-data-center/ --recursive | awk '{print $4}'); do
+            aws s3api put-object-acl --bucket arrey-data-center --acl public-read --key "$file"
+          done
