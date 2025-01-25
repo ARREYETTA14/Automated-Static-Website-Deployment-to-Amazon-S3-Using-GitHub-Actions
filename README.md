@@ -121,3 +121,7 @@ If everything is set up correctly, the workflow will upload your website files t
 ```php
 http://<your-bucket-name>.s3-website-<AWS-region>.amazonaws.com/
 ```
+- Open your web browser.
+- Paste the S3 bucket website URL (e.g., ```http://<your-bucket-name>.s3-website-<AWS-region>.amazonaws.com/```).
+- If everything is working, the ```index.html``` page should load, and you should see your website content.
+
