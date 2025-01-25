@@ -3,6 +3,7 @@ This project automates the deployment of a static website to Amazon S3 using Git
 
 # 1. Prepare Your Files
 - Create the main website page (```index.html```) with the following content:
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -18,6 +19,7 @@ This project automates the deployment of a static website to Amazon S3 using Git
 </html>
 ```
 - Create the error page (```error.html```) with the following content:
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -42,6 +44,7 @@ This project automates the deployment of a static website to Amazon S3 using Git
   - Uncheck **Block all public access**, then confirm you want to make the bucket public.
   - Click **Create bucket**.
   - Go to **permissions** tab and **create bucket policy** policy:
+
 ```json
   {
   "Id": "Policy1737839385249",
@@ -96,7 +99,8 @@ This project automates the deployment of a static website to Amazon S3 using Git
 ![Image](https://github.com/user-attachments/assets/98e49c5a-f33a-4d0d-8186-bc02ddb532ec)
 
 # 7. Define the Workflow
-- Add the following YAML code to automate the deployment:
+- Add the following YAML code in the ```deploy.yml``` file to automate the deployment:
+
 ```yml
 name: Deploy Static Website to S3
 
@@ -130,6 +134,7 @@ jobs:
 
 # 8. Commit and Push Changes
 - After adding the workflow file, commit it to your GitHub repository. You can do this with Git commands:
+
 ```bash
 git add .github/workflows/deploy.yml
 git commit -m "Add GitHub Actions workflow for S3 deployment"
