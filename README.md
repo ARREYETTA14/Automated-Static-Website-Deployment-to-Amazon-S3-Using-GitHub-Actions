@@ -185,6 +185,8 @@ http://<your-bucket-name>.s3-website-<AWS-region>.amazonaws.com/nonexistentfile.
 
 ![Image](https://github.com/user-attachments/assets/dde6a3dc-75f8-4ac5-aa27-5a4123e2dbbd)
 
+- Any change made on the ```index.html``` and ```error.html``` files will automatically be upates on the website on the browser. Just refresh when **Github Action** is done deploying the change.
+
 
 **NB**: If after this you have an **ACCESS DENIED**, **Check Permissions for Each Object**. 
 Each file (such as ```index.html``` and ```error.html```) must have the correct permissions to be publicly accessible.
