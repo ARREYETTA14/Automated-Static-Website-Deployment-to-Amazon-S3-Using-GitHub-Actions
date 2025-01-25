@@ -64,7 +64,8 @@ This project automates the deployment of a static website to Amazon S3 using Git
 - Upload your ```index.html``` and ```error.html``` files to your repo. You can create a folder structure or directly add the files at the root of the repository
 
 # 6. Create a GitHub Actions Workflow
-- In your repository, create the following folder structure: ```.github/workflows/```.
+- clone the **clone** the github repo in yout **vs code**
+- Create the following folder structure in the repository you created: ```.github/workflows/```.
 - Inside this folder, create a file named ```deploy.yml```.
 
 # 7. Define the Workflow
@@ -99,3 +100,6 @@ jobs:
         run: |
           aws s3 sync . s3://${{ secrets.S3_BUCKET_NAME }} --delete
 ```
+
+#8. Commit and Push Changes
+- After adding the workflow file, commit it to your GitHub repository. You can do this with Git commands:
