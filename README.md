@@ -196,7 +196,7 @@ Each file (such as ```index.html``` and ```error.html```) must have the correct 
 
 
 
-#THANK YOU
+# THANK YOU
 
 
 
